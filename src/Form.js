@@ -12,7 +12,7 @@ function Form() {
 
   return (
     <div className="form-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input id="values" name="values" type="text" value={values} onChange={(event) => setValues(event.target.value)} className={validInput ? null : "error"} />
         <select id="operation" name="operation" value={operation} onChange={(event) => setOperation(event.target.value)} className={validInput ? null : "error"}>
           <option value=""></option>
