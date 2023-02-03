@@ -55,8 +55,7 @@ function Form() {
 }
 
 const calculateNumValues = (operation, numValues) => {
-  let totalSum = 0;
-  numValues.forEach((value) => (totalSum += value));
+  const totalSum = numValues.reduce((acc, curr) => acc + curr, 0);
 
   if (operation === "sum") {
     return totalSum;
