@@ -26,7 +26,13 @@ function Form() {
       const operation = event.target.operation.value;
 
       const result = calculateNumValues(operation, numValues);
+
+      setResult(result);
+      setValues("");
+      setOperation("");
     } catch (error) {
+      setValidInput(false);
+      setResult("Invalid input.");
       console.log(error);
     }
   };
@@ -47,5 +53,22 @@ function Form() {
     </div>
   );
 }
+
+const calculateNumValues = (operation, numValues) => {
+  let totalSum = 0;
+  numValues.forEach((value) => (totalSum += value));
+
+  if (operation === "sum") {
+    return totalSum;
+  }
+
+  if (operation === "average") {
+    const numAvg = totalSum / numValues.length;
+    return numAvg;
+  }
+
+  if (operation === "mode") {
+  }
+};
 
 export default Form;
