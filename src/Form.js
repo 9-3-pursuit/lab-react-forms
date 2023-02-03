@@ -10,6 +10,22 @@ function Form() {
   const [operation, setOperation] = useState("");
   const [validInput, setValidInput] = useState("");
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    try {
+      const inputValue = event.target.values.value;
+
+      if (inputValue === "" || /[A-Za-z]/.test(inputValue)) {
+        throw new Error("These are not number values.");
+      }
+
+      setValidInput(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
