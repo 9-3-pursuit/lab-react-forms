@@ -21,6 +21,11 @@ function Form() {
       }
 
       setValidInput(true);
+
+      const numValues = inputValue.split(",").map((element) => parseInt(element.trim()));
+      const operation = event.target.operation.value;
+
+      const result = calculateNumValues(operation, numValues);
     } catch (error) {
       console.log(error);
     }
