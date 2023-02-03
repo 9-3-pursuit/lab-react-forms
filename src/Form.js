@@ -68,6 +68,26 @@ const calculateNumValues = (operation, numValues) => {
   }
 
   if (operation === "mode") {
+    const frequencyObj = {};
+
+    let numRepeated = 1;
+
+    let numMode = numValues[0];
+
+    for (const num of numValues) {
+      if (!frequencyObj[num]) {
+        frequencyObj[num] = 1;
+      } else {
+        frequencyObj[num]++;
+      }
+
+      if (frequencyObj[num] > numRepeated) {
+        numRepeated = frequencyObj[num];
+        numMode = num;
+      }
+    }
+
+    return numMode;
   }
 };
 
