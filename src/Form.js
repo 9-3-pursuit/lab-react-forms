@@ -2,7 +2,7 @@ import React from "react";
 import "./Form.css";
 
 function Form() {
-  return (
+return (
     <form>
       <input id="values" name="values" type="text" />
       <select id="operation" name="operation">
