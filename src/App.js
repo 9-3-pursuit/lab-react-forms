@@ -59,19 +59,21 @@ function handleSubmit(event) {
             }
           });
 
+          console.log(obj);
+
           //return object key with highest value.
           let highestValue = 0;
           let highestValueKey = -Infinity;
 
           for (let key in obj) {
             const value = obj[key];
-            if (value > highestValue) {
+            if (value >= highestValue && Number(key) > highestValueKey) {
               highestValue = value;
               highestValueKey = key;
             }
           }
         //convert key back to number 
-        return Number(highestValueKey);
+        return (highestValueKey);
       }, 0);
       setAnswer(sumAnswer);
     }
