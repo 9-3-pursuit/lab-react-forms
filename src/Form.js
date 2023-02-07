@@ -5,23 +5,26 @@ import { useState } from "react";
 function Form() {
   const [number,setNumber] = useState('')
   const [operation,setOperation] = useState('')
-  let addition, averageNumbers, mode
+  const [result, setResult] = useState('')
 
+  let addition = 0, averageNumbers = 0, mode = {};
+  
   const handleSubmit = (event) => {
     event.preventDefault()
-    const newObj = {number, operation}
     let splitNumber = number.split(',')
     let numbers = splitNumber.map(num => Number(num));
-    console.log(numbers)
-      // if (operation === 'sum'){
-      //   addition = numbers.reduce((acc,current) => acc + current, 0)
-      // } else if (operation === 'average') {
-      //   averageNumbers = addition / (numbers.length)
-      //  } 
-      // else if (operation === 'mode'){
-      //   mode = 
-      // }
-    // }
+     addition = numbers.reduce((acc,current) => acc + current, 0)
+    
+      if (operation === 'sum'){
+        setResult("The sum of the numbers is " + addition);
+      } else if (operation === 'average') {
+          averageNumbers = addition / (numbers.length)
+          setResult("The average of the numbers is " + averageNumbers) 
+      } else if (operation === 'mode'){
+        numbers.forEach(num => { mode[num] = (mode[num] || 0) + 1 });
+        let modeValue = Object.keys(mode).reduce((a, b) => mode[a] > mode[b] ? a : b);
+        setResult("The mode of the numbers is " + modeValue);
+      }
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -46,6 +49,7 @@ function Form() {
       <button type="submit">Calculate</button>
       <p>{ number }</p>
       <p> { operation } </p>
+      <p> {result} </p>
     </form>
   );
 }
