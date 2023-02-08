@@ -4,13 +4,12 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [result, setResult] = useState('')
   return (
     <main>
       <p>Enter each number in the array, separated by a ','</p>
-      <Form onResultChange={setResult} />
+      <Form />
       <section id="result">
-        <p>{result}</p>
+        <p></p>
       </section>
     </main>
   );

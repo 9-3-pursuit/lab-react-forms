@@ -2,7 +2,7 @@ import React from "react";
 import "./Form.css";
 import { useState } from "react";
 
-function Form({ onResultChange }) {
+function Form() {
   const [number,setNumber] = useState('')
   const [operation,setOperation] = useState('')
   const [result, setResult] = useState('')
@@ -15,31 +15,29 @@ function Form({ onResultChange }) {
     if (!number){
       setResult("Invalid input. Enter numbers");
       setInputValid("error");
-      onResultChange(result);
       return;
     }
 
     if (!operation){
       setResult("Invalid input. Choose an operation");
-      setInputValid("error");
-      onResultChange(result);
+      setInputValid("error")
       return;
     }
     let splitNumber = number
                             .trim()                 //trim for space
                             .split(',')             //split for comma
                             .filter(str => str.trim().length > 0); // filter to remove comma if no number after comma
+
     if (splitNumber.join('').length === 0) {
       setResult("Invalid input. Enter numbers");
-      setInputValid("error");
-      onResultChange(result);
+      setInputValid("error")
       return;
     }
+    
     let numbers = splitNumber.map(num => Number(num));
     if (numbers.some(isNaN)) { // check if any alphabet 
       setResult("Invalid input.");
-      setInputValid("error");
-      onResultChange(result);
+      setInputValid("error")
       return;
     }
     
@@ -48,12 +46,11 @@ function Form({ onResultChange }) {
       if (operation === 'sum'){
         setInputValid(false);
         setResult("The sum of the numbers is: " + addition);
-        onResultChange(result);
       } else if (operation === 'average') {
           averageNumbers = addition / (numbers.length)
           setInputValid(false);
           setResult("The average of the numbers is: " + averageNumbers.toFixed(2))
-          onResultChange(result);
+
       } else if (operation === 'mode'){
           numbers.forEach(num => { frequency[num] = (frequency[num] || 0) + 1 });
           let entries = Object.entries(frequency);
@@ -64,7 +61,6 @@ function Form({ onResultChange }) {
                                     .map(entry => entry[0]);
           setInputValid(false);
           setResult("The mode (number occurred frequently) is: " + modeValues.join(', '));
-          onResultChange(result);
       }
       setNumber('') // clear input after clicking calculate, as per cypress
       setOperation('') // clear operation after clicking calculate, as per cypress
@@ -79,7 +75,6 @@ function Form({ onResultChange }) {
         value = {number}
         autoFocus
         className={inputValid === "error" ? "error" : ""} //  as per cypress
-        
         onChange = {(event) => setNumber(event.target.value)}
       />
       <select 
