@@ -46,7 +46,7 @@ Keep the following in mind for this lab as you run the tests.
 
 Build a React app containing:
 
-- An input where the user can enter comma-separated number values in an array.
+- An input where the user can enter comma-separated number values in an array. -->user input
 - A select input to choose between calculating the sum, the average, and the [mode](https://www.mathsisfun.com/definitions/mode.html) -- the most frequently occurring number.
 - A "Calculate" button that, when pressed, puts the result of the selected operation on the input numbers on the screen.
   - If the numbers are invalid for some reason, display the exact message `Invalid input.`, keeping the punctuation.
