@@ -7,6 +7,7 @@ function App() {
   const [numbers, setNumbers] = useState('');
   const [type, setType] = useState('');
   const [answer,setAnswer] = useState(null);
+  //const [validInput, setValidInput] = useState('');
 
 
 function handleChange(event) {
@@ -16,6 +17,7 @@ function handleChange(event) {
 
 function handleSubmit(event) {
   event.preventDefault();
+
   const mappedNumbers = numbers.split(',').map((num) => Number(num));
 
   let textIsValid = mappedNumbers.every((num) => Number.isFinite(num));
@@ -85,12 +87,7 @@ function handleSubmit(event) {
     <main>
       <p>Enter each number in the array, separated by a ','</p>
       <form onSubmit={handleSubmit}>
-      <input id="values" 
-      name="values" 
-      type="text" 
-      value={numbers} 
-      onChange={handleChange}
-      />
+      <input id="values" name="values" type="text" value={numbers} onChange={handleChange} />
       <select id="operation" name="operation" onChange={handleChange}>
         <option value=""></option>
         <option value="sum">sum</option>
