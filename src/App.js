@@ -6,25 +6,29 @@ const App = () => {
   const [numbers, setNumbers] = useState("");
   const [operation, setOperation] = useState("sum");
   const [result, setResult] = useState("");
+  const [hasError, setHasError] = useState(false);
 
-  const handleChange = (e) => {
-    setNumbers(e.target.value);
+  const handleNumbersChange = (event) => {
+    setNumbers(event.target.value);
   };
 
   const handleSelectChange = (e) => {
     setOperation(e.target.value);
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const parsedNumbers = numbers
       .split(",")
-      .map((num) => parseInt(num, 10))
+      .map((num) => parseFloat(num, 10))
       .filter((num) => !isNaN(num));
 
-    if (parsedNumbers.length === 0) {
-      setResult("Invalid input.");
-      return;
+      if (parsedNumbers.length === 0) {
+        setResult("Invalid input.");
+        setHasError(true);
+        return;
     }
 
     switch (operation) {
@@ -60,6 +64,8 @@ const App = () => {
         setResult("Invalid input.");
         break;
     }
+    setNumbers("");
+    setHasError(false);
   };
 
   return (
@@ -70,7 +76,8 @@ const App = () => {
           name="values"
           type="text"
           value={numbers}
-          onChange={handleChange}
+          onChange={handleNumbersChange}
+          className={hasError ? "error" : ""}
         />
         <select value={operation} onChange={handleSelectChange} id="operation" name="operation">
           <option value=""></option>
@@ -78,7 +85,7 @@ const App = () => {
           <option value="average">Average</option>
           <option value="mode">Mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button type="submit" onclick={handleSubmit}>Calculate</button>
       </form>
       <div>Result: {result}</div>
     </div>
