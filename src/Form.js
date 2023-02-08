@@ -5,30 +5,35 @@ function Form(){
   
   const [select, setSelect] = useState("");
   const [numberArray, setNumberArray] = useState();
-  const [result, setResult] = useState()
+  const [result, setResult] = useState();
+  const [inputClass, setInputClass] = useState();
+  const [selectClass, setSelectClass] = useState();
 
 
   function handleSelectChange(event){
-    setSelect(event.target.value) 
+    setSelect(event.target.value); 
   }
   
   function handleNumberArray(event){
-    setNumberArray(event.target.value.split(",").map((num)=>{return parseInt(num)}));
+    setNumberArray(event.target.value.split(","));
   }
 
   function handleFormSubmit(event){
    event.preventDefault();
-   if (select === ""){
-    setResult("Invalid input.")
-   }
+
+   if (select === "" || numberArray.some((num)=> {return isNaN(num)})){
+    setResult("Invalid input.");
+    setInputClass("error");
+    setSelectClass("error");
+   } else {
    if (select === "sum"){
     let sum=0;
-    numberArray.map((num)=>{ return sum+=num})
+    numberArray.map((num)=>{ return sum+=parseInt(num)})
     setResult(sum);
    }
    if (select === "average"){
     let average=0;
-    numberArray.map((num)=>{return average+=num})
+    numberArray.map((num)=>{return average+=parseInt(num)})
     average=average/numberArray.length;
     setResult(average);
    }
@@ -52,15 +57,18 @@ function Form(){
     }
     setResult(mode);
   }
-  console.log(result)
+  setNumberArray("");
+  setSelect("");
+  setInputClass("");
+  setSelectClass("");
   }
-  
+  }
 
   return (
     <>
     <form onSubmit={handleFormSubmit}>
-      <input id="values" name="values" type="text" onChange={handleNumberArray}/>
-      <select id="operation" name="operation" onChange={handleSelectChange}>
+      <input className={inputClass} id="values" name="values" type="text" onChange={handleNumberArray} value={numberArray}/>
+      <select className={selectClass} id="operation" name="operation" onChange={handleSelectChange} value={select}>
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
