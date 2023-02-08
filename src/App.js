@@ -42,8 +42,10 @@ function App() {
        average = sum / numbersArray.length;
        setResult(average);
     } else if (numbersArray.every(element => typeof element === "number") && operation === "mode") {
-      let count = {};
-      numbersArray.forEach(num => count[num] = (count[num] || 0) + 1);
+      let count = numbersArray.reduce((acc, cur) => {
+        acc[cur] = (acc[cur] || 0) + 1;
+        return acc;
+      }, {});
       let maxCount = Math.max(...Object.values(count));
       let mode = Object.keys(count).filter(key => count[key] === maxCount);
       setResult(mode);
