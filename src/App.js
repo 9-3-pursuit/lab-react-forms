@@ -38,8 +38,6 @@ function App() {
         return first;
       }, {});
 
-      modeObj.entries();
-
       setAnswer("");
     }
   }
