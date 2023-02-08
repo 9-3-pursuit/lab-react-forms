@@ -1,6 +1,6 @@
 import React from "react";
 import "./Form.css";
-
+import "./App.js"
 function Form() {
   return (
     <form>
@@ -13,7 +13,7 @@ function Form() {
       </select>
       <button type="submit">Calculate</button>
     </form>
-  );
+);
 }
 
 export default Form;
