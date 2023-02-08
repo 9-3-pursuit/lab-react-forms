@@ -4,65 +4,79 @@ import { useState } from "react";
 
 function Form() {
   const [select, setSelect] = useState("");
-  const [numberArray, setNumberArray] = useState();
-  const [result, setResult] = useState()
-
+  const [values, setValues] = useState("");
+  const [result, setResult] = useState();
+  const [inputClass, setInputClass] = useState();
+  const [selectClass, setSelectClass] = useState();
 
   function handleSelectChange(event){
     setSelect(event.target.value)
   }
   
   
-  function handleNumberArray(event){
-    setNumberArray(event.target.value.split(",").map((num)=>{return parseInt(num)}));
+  function handleValues(event){
+    setValues(event.target.value.split(","));
+    //event.target.value.split(",").map((num)=>{return parseInt(num)})
   }
 
   function handleFormSubmit(event){
     event.preventDefault();
-    if (select === ""){
+    // console.log(values)
+    // console.log(isNaN(values[0]))
+    // console.log(values.some((num)=>{return isNaN(num)}))
+
+    if (select === "" || values.some((num)=>{return isNaN(num)})){
       setResult("Invalid input.")
-     }
-     if (select === "sum"){
-      let sum = 0;
-      numberArray.map((num)=>{ return sum+=num});
-      setResult(sum);
-     }
-     if (select === "average"){
-      let average = 0;
-      numberArray.map((num)=>{return average+=num})
-      average=average/numberArray.length;
-      setResult(average)
-     }
-     if (select === "mode"){
-      let modeObj = {};
-      let mode = numberArray[0]
-      let maxCount = 1;
-      
-      for(let i = 0; i < numberArray.length; i++){
-         let num = numberArray[i];
-  
-          if(modeObj[num] == null){
-              modeObj[num] = 1;
-          }else{
-              modeObj[num]++;
-          }  
-          if(modeObj[num] > maxCount){
-              mode = num;
-              maxCount = modeObj[num];
-          }
+      setInputClass("error");
+      setSelectClass("error")
+     } else {
+      if (select === "sum"){
+        let sum = 0;
+        values.map((num)=>{ return sum+=parseInt(num)});
+        setResult(sum);
+        console.log("here1")
+       }
+       if (select === "average"){
+        let average = 0;
+        values.map((num)=>{return average+=parseInt(num)})
+        average=average/values.length;
+        setResult(average)
+       }
+       if (select === "mode"){
+        let modeObj = {};
+        let mode = parseInt(values[0])
+        let maxCount = 1;
+        
+        for(let i = 0; i < values.length; i++){
+           let num = parseInt(values[i]);
+    
+            if(modeObj[num] == null){
+                modeObj[num] = 1;
+            }else{
+                modeObj[num]++;
+            }  
+            if(modeObj[num] > maxCount){
+                mode = num;
+                maxCount = modeObj[num];
+            }
+        }
+        setResult(mode)
       }
-      setResult(mode)
-    }
-    console.log(result)
+      setValues("");
+      setSelect("");
+      setInputClass("");
+      setSelectClass("");
+     }
+     
   }
   
 
 
   return (
     <>
-    <form onSubmit={handleFormSubmit}>
-      <input id="values" name="values" type="text" onChange={handleNumberArray}/>
-      <select id="operation" name="operation" onChange={handleSelectChange}>
+    <form onSubmit={handleFormSubmit} >
+      <input class={inputClass} id="values" name="values" type="text" onChange={handleValues} value={values}/>
+      <select class={selectClass} id="operation" name="operation" onChange={handleSelectChange} value={select}>
         <option value=""></option>
         <option value="sum">sum</option>
         <option value="average">average</option>
