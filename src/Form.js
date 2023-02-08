@@ -9,7 +9,7 @@ function Form() {
         <select id="operation" name="operation">
           <option value=""></option>
           <option value="sum">sum</option>
-          <option value="average">average</option>
+          <option value="average">average</option>z
           <option value="mode">mode</option>
         </select>
         <button type="submit">Calculate</button>
