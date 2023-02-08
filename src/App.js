@@ -11,6 +11,7 @@ function App() {
   function handleSubmit(event) { // * function to handle submit form
     event.preventDefault()
 
+    // ! v--- this returns the required returns in the react but does NOT get any checks in cypress
     if (!input || !operations) {
       setAnswer(true)
       return setAnswer(`Invaild input.`)
@@ -24,6 +25,9 @@ function App() {
     setAnswer((input.split(",").map((number) => Number(number)).reduce((prevNum, changeNum) => prevNum + changeNum, 0)) /
       input.split(",").length)
   }
+  
+  // ! mode code does not work when tried in react --v
+ 
   if (operations === "mode") { // ? finds mode;number repeating
     setAnswer(input.reduce((prevNum, changeNum) => {
       if (prevNum[changeNum]) {
