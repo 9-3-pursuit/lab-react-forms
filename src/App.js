@@ -6,62 +6,62 @@ import { useState } from "react"
 function App() {
   const [input, setInput] = useState("") // * user input
   const [answer, setAnswer] = useState("") // * results/answer
-  const [validInput, setValidInput] = useState("") // * valid input; place alert for invalid input in condition
   const [operations, setOpt] = useState("") // * input of sum /avg/ mode
 
   function handleSubmit(event) { // * function to handle submit form
     event.preventDefault()
-    validAns()
-  }
-  function handleSelectChange(event) { // * function to handle operation changes
-    setOpt({ ...operations, [event.target.id]: event.target.value })
-  
-  }
 
-  function validAns() { // * if valid ans return ans, if invaild ans return alert
-
-    if (!validInput === "") {
-      setValidInput(validInput)
-
-    }
-    alert("Invalid input.")
-
+    if (!input || !operations) {
+      setAnswer(true)
+      return setAnswer(`Invaild input.`)
 
   }
+  if (operations === "sum") { // ? total of all numbers together
+    setAnswer(input.split(",").map((number) => Number(number)).reduce((prevNum, changeNum) => prevNum + changeNum, 0))
 
-  // function optionChange (options,optionAns ){
-  //   const sumTotal =  optionAns.reduce((prevNum, changeNum) => prevNum +changeNum,0)
-    
-  //   if (options === "sum" ) { // ? total of all numbers together
-  //    return sumTotal
-  //   }
-  //   if (options === "average") { // ? avg of numbers given
-  //     // const avgNum =
-  //     return avgNum
-  //   }
-  //   if(options === "mode") { // ? repeating number -> loop through for same number(?)
-  //     // const repeatNum =
-  //     return repeatNum
-  //   }
-  // }
+  }
+  if (operations === "average") { // ? avg of numbers given
+    setAnswer((input.split(",").map((number) => Number(number)).reduce((prevNum, changeNum) => prevNum + changeNum, 0)) /
+      input.split(",").length)
+  }
+  if (operations === "mode") { // ? finds mode;number repeating
+    setAnswer(input.reduce((prevNum, changeNum) => {
+      if (prevNum[changeNum]) {
+        prevNum[changeNum]++
+      } else {
+        prevNum[changeNum] = 1
+      }
+      return prevNum
+    }, []
+    ))
+  }
+  // if (operations === "") {
+  //   setAnswer("Invaild input.")
+  }
+  function handleSelectChangeInput(event) { // * function to handle user input changes
+    setInput(event.target.value)
+  }
 
+  function handleSelectChangeOpt(event) { // * function to handle operation add-on changes
+    setOpt(event.target.value)
+  }
 
 
   return (
     <main>
       <p>Enter each number in the array, separated by a ','</p>
       <form onSubmit={handleSubmit}>
-        <input id="values" name="values" type="text"  />
-        <select id="operation" name="operation" onChange={handleSelectChange}>
+        <input id="values" name="values" type="text" onChange={handleSelectChangeInput} />
+        <select id="operation" name="operation" onChange={handleSelectChangeOpt}>
           <option value=""></option>
           <option value="sum">sum</option>
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit ">Calculate</button>
+        <button type="submit" >Calculate</button>
       </form>
       <section id="result">
-        <p></p>
+        <p> {answer} </p>
       </section>
     </main>
   );
