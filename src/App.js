@@ -22,15 +22,15 @@ function App() {
 
 let object = []
 
-      array.forEach(num); {
+      array.forEach(num => {
         if(!object[num]) {
           object[num] = 1
 
         }else{
           object[num]+= 1
         }
-      
-      }
+     
+      })
 let highestValue = 0
 let highestValueKey = -10000
  for ( let key in object){
@@ -54,6 +54,7 @@ function handleChangeSelect(e) {
   setTypeOf(e.target.value)
 
 }
+console.log("array")
 return(
     <main>
       <p>Enter each number in the array, separated by a ','</p>
