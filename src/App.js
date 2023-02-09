@@ -3,6 +3,7 @@ import React from "react";
 import "./App.css";
 import {useState} from "react"
 
+
 function App() {
   const [num, setNum] = useState("")
   const [typeOf,setTypeOf] = useState("")
