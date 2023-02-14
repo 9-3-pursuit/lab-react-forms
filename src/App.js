@@ -13,12 +13,15 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const mappedNumbers = numbers.split(",").map((num) => Number(num));
+    const mappedNumbers = numbers
+      .split(",")
+      .map((num) => num.trim() === "" ? NaN : Number(num));
 
     let textIsValid = mappedNumbers.every((num) => Number.isFinite(num));
 
     if (!textIsValid || type === "") {
       setAnswer("Invalid input.");
+      return "";
     }
 
     if (type !== "mode") {
