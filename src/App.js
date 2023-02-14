@@ -9,7 +9,6 @@ function App() {
   function handleChange(e) {
     const setMethod = e.target.id === "operation" ? setType : setNumbers;
     setMethod(e.target.value);
-    console.log("yes i know");
   }
 
   function handleSubmit(e) {
