@@ -15,7 +15,7 @@ function App() {
     e.preventDefault();
     const mappedNumbers = numbers
       .split(",")
-      .map((num) => num.trim() === "" ? NaN : Number(num));
+      .map((num) => (num.trim() === "" ? NaN : Number(num)));
 
     let textIsValid = mappedNumbers.every((num) => Number.isFinite(num));
 
@@ -40,7 +40,7 @@ function App() {
         return first;
       }, {});
 
-      const MODE_ARRAY = Object.entries(FREQUENCY_OF_NUMBERS).reduce((a, b) =>
+      const MODE_ARRAY = Object.entries(modeObj).reduce((a, b) =>
         a[1] > b[1] ? a : b
       );
       setAnswer(MODE_ARRAY[0]);
