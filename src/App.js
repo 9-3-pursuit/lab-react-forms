@@ -40,7 +40,10 @@ function App() {
         return first;
       }, {});
 
-      setAnswer("");
+      const MODE_ARRAY = Object.entries(FREQUENCY_OF_NUMBERS).reduce((a, b) =>
+        a[1] > b[1] ? a : b
+      );
+      setAnswer(MODE_ARRAY[0]);
     }
   }
 
