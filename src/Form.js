@@ -1,7 +1,9 @@
 import React from "react";
 import "./Form.css";
+import { useState } from "react";
 
 function Form() {
+  const [solution, setSolution] = useState("")
   return (
     <div>
       <form>
@@ -12,13 +14,91 @@ function Form() {
           <option value="average">average</option>
           <option value="mode">mode</option>
         </select>
-        <button type="submit">Calculate</button>
+        <button onClick={calculate}type="submit">Calculate</button>
+        <h3>{solution}</h3>
       </form>
       <section id="result">
         <p></p>
       </section>
     </div>
   );
-}
+  function calculate (event) {
+    event.preventDefault()
+    const input = document.querySelector("#values").value
+    checkValidity(input)
+    const numbers = (input.split(",")).map(number => Number(number))
+    
+
+    const operation = document.querySelector("#operation").value
+
+    const sumOfNumbers = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    checkValidity(operation,sumOfNumbers)
+
+    switch (operation) {
+      case "sum":
+        setSolution(sumOfNumbers)
+        break;
+      case "average":
+        setSolution(sumOfNumbers/numbers.length)
+        break;
+      case "mode":
+        setSolution(modeCalcuate(numbers))
+        break;
+
+    }
+    checkValidity(operation,sumOfNumbers)
+
+  }
+  function modeCalcuate(numbers) {
+    const numberObj = {}
+    let highestValue = 0
+    let highestElement = ""
+    
+    numbers.forEach(number => {
+      if (!numberObj[number]){
+        numberObj[number] = 1
+      } else {
+        numberObj[number]++
+      }
+    })
+    for (let key in numberObj) {
+      const value = numberObj[key]
+      if (value > highestValue){
+        highestValue = value
+        highestElement = key
+      }
+    }
+    return highestElement
+  }
+
+  
+  function checkValidity(operation, sumOfNumbers) {
+    const form = document.querySelector("form")
+    const input = document.querySelector("input")
+    const select = document.querySelector("select")
+
+    if (solution === false || solution === NaN ){
+      setSolution("Invalid input.") 
+      select.classList.add("error")
+      input.classList.add("error")
+    } else 
+    if( !operation ) {
+      select.classList.add("error")
+      input.classList.add("error")
+      setSolution("Invalid input. Operation")
+    }
+    else if (!sumOfNumbers) {
+      select.classList.add("error")
+      input.classList.add("error")
+      setSolution("Invalid input. Use Numbers")
+    } else {
+      select.classList.remove("error")
+      input.classList.remove("error")
+      form.reset()
+    }
+
+  }
+  }
+
 
 export default Form;
