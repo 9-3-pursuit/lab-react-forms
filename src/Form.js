@@ -30,7 +30,7 @@ function Form() {
       if (resObject[property] > highest) {
         finalArray = [property];
         highest = resObject[property];
-      } else if (resObject[property] == highest) {
+      } else if (resObject[property] === highest) {
         finalArray.push(property);
       }
     }
@@ -43,18 +43,17 @@ function Form() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    let op = document.querySelector("#operation");
     if (input && operation) {
       let nums = input.split(",");
       nums = nums.map((x) => parseInt(x));
       console.log(operation);
-      if (operation == "sum") {
+      if (operation === "sum") {
         if (!Number.isNaN(sum(nums))) {
           setResult(sum(nums));
         } else {
           setResult("Invalid input.");
         }
-      } else if (operation == "average") {
+      } else if (operation === "average") {
         if (!Number.isNaN(average(nums))) {
           setResult(average(nums));
         } else {
