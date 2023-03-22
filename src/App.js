@@ -66,6 +66,7 @@ function App() {
   }
   return (
     <main>
+         <p>Enter each number in the array, separated by a ','</p>
       <form onSubmit={handleFormSubmit}>
         <input
           id="values"
